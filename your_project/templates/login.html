@@ -1,0 +1,17 @@
+<!-- templates/login.html -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+<form method="POST">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="submit" value="Login">
+</form>
+<a href="{{ url_for('register') }}">Register</a> <!-- Убедитесь, что ссылка ведет на страницу регистрации -->
+</body>
+</html>
