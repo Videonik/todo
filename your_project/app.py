@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -19,7 +18,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 with app.app_context():
-    db.create_all()  # Создать таблицы
+    db.create_all()
     
 @app.route('/')
 def index():
@@ -38,16 +37,12 @@ def login():
             flash('Invalid username or password', 'danger')
     return render_template('login.html')
 
-# app.py
-# (другие импорты и код остаются прежними)
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        
-        # Проверяем, что пользователь с таким именем еще не существует
+
         if User.query.filter_by(username=username).first():
             flash('Username already exists. Please choose a different one.', 'danger')
             return redirect(url_for('register'))
@@ -61,8 +56,6 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html')
-
-# (остальной код остается прежним)
 
 @app.route('/todo', methods=['GET', 'POST'])
 @login_required
