@@ -1,25 +1,142 @@
-<!-- templates/todo.html -->
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>To-Do List</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 30px;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px;
+            margin: 0;
+            color: #333;
+        }
+
+        h1 {
+            color: #4a90e2;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+            width: 350px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 2px solid #4a90e2;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1em;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #357ab8;
+            transform: translateY(-2px);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 700px;
+
+        }
+
+        li {
+            background: #e3f2fd;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        li:hover {
+            background: #bbdefb;
+        }
+
+        .delete-button {
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .delete-button:hover {
+            background: #e57373;
+        }
+
+        a {
+            text-align: center;
+            color: #4a90e2;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .del_btn {gap: 35px;}
+    </style>
 </head>
 <body>
-<h1>To-Do List</h1>
-<form method="POST">
-    <input type="text" name="content" placeholder="New task" required>
-    <input type="submit" value="Add Task">
-</form>
-<ul>
-    {% for todo in todos %}
-        <li>{{ todo.content }}
-            <form action="{{ url_for('delete_todo', id=todo.id) }}" method="POST" style="display:inline;">
-                <input type="submit" value="Delete" onclick="return confirm('Вы уверены, что хотите удалить эту задачу?');">
-            </form>
-        </li>
-    {% endfor %}
-</ul>
-<a href="{{ url_for('logout') }}">Logout</a>
+    <h1>Лист задач</h1>
+    <form method="POST">
+        <input type="text" name="content" placeholder="Новая задача" required>
+        <input type="submit" value="Добавить задачу">
+    </form>
+    <ul>
+        {% for todo in todos %}
+            <li class="del_btn">{{ todo.content }}
+                <form action="{{ url_for('delete_todo', id=todo.id) }}" method="POST" style="display:inline;">
+                    <input type="submit" value="Удалить" onclick="return confirm('Вы уверены, что хотите удалить эту задачу?');">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('logout') }}">Выйти</a>
 </body>
 </html>
